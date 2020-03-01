@@ -66,7 +66,7 @@ python-versions = "*"
 version = "3.0.4"
 
 [[package]]
-category = "dev"
+category = "main"
 description = "Composable command line interface toolkit"
 name = "click"
 optional = false
@@ -388,7 +388,7 @@ python-versions = "*"
 version = "0.1.8"
 
 [metadata]
-content-hash = "00827573a48ae5b499fbe46b684d2a2b0cb9241d063812db24d54fc65c298d87"
+content-hash = "8b78293766311ceda221b9ada7bed27044ecf6aff6af9f8fb2e435115f70a448"
 python-versions = "^3.8"
 
 [metadata.files]
