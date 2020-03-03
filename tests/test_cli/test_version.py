@@ -1,12 +1,6 @@
 import pytest
-from click.testing import CliRunner
 
 from eeprom import __version__, cli
-
-
-@pytest.fixture
-def runner():
-    return CliRunner()
 
 
 @pytest.fixture

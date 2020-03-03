@@ -7,8 +7,7 @@ Tool for reading and writing EEPROMs over USB serial to an arduino based EEPROM 
 import click
 
 from .__version__ import __version__
-
-# from eeprom.programmer import Programmer
+from .programmer import Programmer
 
 
 @click.group()
@@ -23,7 +22,13 @@ def version():
     click.echo(f"eeprom version: {__version__}")
 
 
-cli.add_command(version)
+@click.command()
+def read_byte():
+    """Read a byte from the EEPROM."""
+    programmer = Programmer()
+    byte = programmer.read_byte(0)
+    click.echo(f"{byte:04X}")
 
-if __name__ == "__main__":
-    cli()
+
+cli.add_command(version)
+cli.add_command(read_byte)
