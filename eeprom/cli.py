@@ -23,10 +23,16 @@ def version():
 
 
 @click.command()
-def read_byte():
+@click.argument("address")
+def read_byte(address):
     """Read a byte from the EEPROM."""
+    try:
+        address = int(address, 16)
+    except ValueError:
+        click.echo(f"{address} is not a valid address.", err=True)
+        exit(1)
     programmer = Programmer()
-    byte = programmer.read_byte(0)
+    byte = programmer.read_byte(address)
     click.echo(f"{byte:04X}")
 
 
