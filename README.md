@@ -130,3 +130,12 @@ The **read** command reads the contents of the EEPROM and writes it to STDOUT in
 ```bash
 eeprom read > binary_file.bin
 ```
+
+## verify
+
+The **verify** command takes a binary file and compares it to the contents of the EEPROM. If the contents match the program will return a 0 exit code, otherwise it will print a list of differences to STDOUT and exit with 1.
+
+```bash
+eeprom verify binary_file.bin
+$ 005A expected 2A found 3F
+```

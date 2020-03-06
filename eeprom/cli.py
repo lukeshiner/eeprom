@@ -71,8 +71,31 @@ def read():
     click.echo(bytes(data), nl=False)
 
 
+@click.command()
+@click.argument("binary_file", type=click.File("rb"))
+def verify(binary_file):
+    """
+    Verify the contents of the EEPROM match a binary file.
+
+    If the contents match the program will exit with 0.
+
+    Otherwise a list of differences will be printed to STDOUT and the program will
+    exit with 1.
+    """
+    programmer = Programmer()
+    expected_data = list(binary_file.read())
+    found_data = programmer.read()
+    if expected_data != found_data:
+        for address, expected in enumerate(expected_data):
+            found = found_data[address]
+            if found != expected:
+                click.echo(f"{address:04X} expected {expected:02X} found {found:02X}")
+        exit(1)
+
+
 cli.add_command(version)
 cli.add_command(read_byte)
 cli.add_command(write_byte)
 cli.add_command(write)
 cli.add_command(read)
+cli.add_command(verify)
