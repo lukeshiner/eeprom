@@ -159,3 +159,10 @@ def read_serial_responses():
         return messages
 
     return _read_serial_responses
+
+
+@pytest.fixture
+def altered_binary_file_contents(binary_file_contents):
+    altered_binary_file_contents = list(binary_file_contents)
+    altered_binary_file_contents[0x0050] = 0xFF
+    return altered_binary_file_contents

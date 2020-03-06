@@ -4,13 +4,6 @@ from eeprom import cli
 
 
 @pytest.fixture
-def altered_binary_file_contents(binary_file_contents):
-    altered_binary_file_contents = list(binary_file_contents)
-    altered_binary_file_contents[0x0050] = 0xFF
-    return altered_binary_file_contents
-
-
-@pytest.fixture
 def matching_verify_result(
     default_programmer,
     runner,

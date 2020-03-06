@@ -93,9 +93,32 @@ def verify(binary_file):
         exit(1)
 
 
+@click.command()
+@click.argument("binary_file", type=click.File("rb"))
+def update(binary_file):
+    """
+    Update the contents of the EEPROM with the contents of a binary file.
+
+    This will read the EEPROM and overwrite any data that does not match the provided
+    file. This is done in blocks of 16 addresses. When the existing contents are similar
+    to the contents of the file this is much quicker than write command, however when
+    they differ greatly the extra time taken to read the EEPROM should be taken into
+    account.
+    """
+    programmer = Programmer()
+    new_data = list(binary_file.read())
+    existing_data = programmer.read()
+    for address in range(0, len(new_data), 16):
+        new_block = new_data[address : address + 16]
+        existing_block = existing_data[address : address + 16]
+        if new_block != existing_block:
+            programmer.write_block(address, new_block)
+
+
 cli.add_command(version)
 cli.add_command(read_byte)
 cli.add_command(write_byte)
 cli.add_command(write)
 cli.add_command(read)
 cli.add_command(verify)
+cli.add_command(update)

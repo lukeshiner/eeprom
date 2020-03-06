@@ -139,3 +139,11 @@ The **verify** command takes a binary file and compares it to the contents of th
 eeprom verify binary_file.bin
 $ 005A expected 2A found 3F
 ```
+
+## update
+
+The **update** command updates the contents of the EEPROM where it differs from the contents of a passed binary file. If they are similar this is much faster than writing the entire EEPROM, however it does add an extra read operation so if the contents differ greatly it can take longer.
+
+```bash
+eeprom update binary_file.bin
+```
