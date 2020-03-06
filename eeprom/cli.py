@@ -33,7 +33,7 @@ def read_byte(address):
         exit(1)
     programmer = Programmer()
     byte = programmer.read_byte(address)
-    click.echo(f"{byte:04X}")
+    click.echo(f"{byte:02X}")
 
 
 cli.add_command(version)
