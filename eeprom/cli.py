@@ -10,6 +10,17 @@ from .__version__ import __version__
 from .programmer import Programmer
 
 
+class HexInt(click.ParamType):
+    """Parameter type for hexadecimail integers."""
+
+    def convert(self, value, param, ctx):
+        """Return the input as an integer or fail."""
+        try:
+            return int(value, 16)
+        except ValueError:
+            self.fail(f"{value} is not a valid hexidecimal integer.")
+
+
 @click.group()
 def cli():
     """Handle commands."""
@@ -23,34 +34,23 @@ def version():
 
 
 @click.command()
-@click.argument("address")
+@click.option(
+    "--address", "-a", type=HexInt(), help="The address to read in hex. E.g 2F0A"
+)
 def read_byte(address):
     """Read a byte from the EEPROM."""
-    try:
-        address = int(address, 16)
-    except ValueError:
-        click.echo(f"{address} is not a valid address.", err=True)
-        exit(1)
     programmer = Programmer()
     byte = programmer.read_byte(address)
     click.echo(f"{byte:02X}")
 
 
 @click.command()
-@click.argument("address")
-@click.argument("byte")
+@click.option(
+    "--address", "-a", type=HexInt(), help="The address to write to in hex. E.g 2F0A"
+)
+@click.option("--byte", "-b", type=HexInt(), help="The byte to write in hex. E.g E2")
 def write_byte(address, byte):
-    """Read a byte from the EEPROM."""
-    try:
-        address = int(address, 16)
-    except ValueError:
-        click.echo(f"{address} is not a valid address.", err=True)
-        exit(1)
-    try:
-        byte = int(byte, 16)
-    except ValueError:
-        click.echo(f"{byte} is not a valid byte.", err=True)
-        exit(1)
+    """Write a byte to the EEPROM."""
     programmer = Programmer()
     byte = programmer.write_byte(address, byte)
 

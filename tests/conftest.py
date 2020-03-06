@@ -7,6 +7,41 @@ from eeprom import Programmer
 
 
 @pytest.fixture
+def byte():
+    return 0xEA
+
+
+@pytest.fixture
+def address():
+    return 0x0B07
+
+
+@pytest.fixture
+def invalid_address():
+    return "INVALID_ADDRESS"
+
+
+@pytest.fixture
+def invalid_byte():
+    return "INVALID_BYTE"
+
+
+@pytest.fixture
+def read_byte_serial_response(byte):
+    return f"{byte:02X}\n".encode("utf8")
+
+
+@pytest.fixture
+def read_byte_serial_request(address):
+    return f"R{address:04X}\n".encode("utf8")
+
+
+@pytest.fixture
+def write_byte_serial_request(address, byte):
+    return f"W{address:04X}{byte:02X}\n".encode("utf8")
+
+
+@pytest.fixture
 def programmer(mock_serial_connection, mock_time):
     def _programmer(port=None, baud=None, eeprom_type=None, init_delay=None):
         kwargs = {

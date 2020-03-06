@@ -103,7 +103,7 @@ $ 0.1.0
 The **read-byte** command reads the byte in a given address in hex of the EEPROM and prints it to **STDOUT**.
 
 ```bash
-eeprom read-byte F563
+eeprom read-byte --address F563
 $ EA
 ```
 
@@ -112,5 +112,5 @@ $ EA
 The **write-byte** command writes a given byte to a given address.
 
 ```bash
-eeprom write-byte F563 2A
+eeprom write-byte --address F563 --byte 2A
 ```
