@@ -4,25 +4,10 @@ from eeprom import cli
 
 
 @pytest.fixture
-def read_serial_requests(binary_file_contents):
-    messages = []
-    for i in range(0, len(binary_file_contents), 16):
-        message = f"T{i:04X}\n"
-        messages.append(message.encode("utf8"))
-    return messages
-
-
-@pytest.fixture
-def read_serial_responses():
-    def _read_serial_responses(data):
-        messages = []
-        for i in range(0, len(data), 16):
-            block = " ".join([f"{byte:02X}" for byte in data[i : i + 16]])
-            message = f"{block}\n"
-            messages.append(message.encode("utf8"))
-        return messages
-
-    return _read_serial_responses
+def altered_binary_file_contents(binary_file_contents):
+    altered_binary_file_contents = list(binary_file_contents)
+    altered_binary_file_contents[0x0050] = 0xFF
+    return altered_binary_file_contents
 
 
 @pytest.fixture
@@ -37,13 +22,6 @@ def matching_verify_result(
         binary_file_contents
     )
     return runner.invoke(cli, f"verify {binary_file_path}")
-
-
-@pytest.fixture
-def altered_binary_file_contents(binary_file_contents):
-    altered_binary_file_contents = list(binary_file_contents)
-    altered_binary_file_contents[0x0050] = 0xFF
-    return altered_binary_file_contents
 
 
 @pytest.fixture
@@ -85,5 +63,6 @@ def test_serial_message_sent(
     matching_verify_result,
     assert_messages_sent,
     read_serial_requests,
+    binary_file_contents,
 ):
-    assert_messages_sent(default_programmer, read_serial_requests)
+    assert_messages_sent(default_programmer, read_serial_requests(binary_file_contents))

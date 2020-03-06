@@ -134,3 +134,28 @@ def valid_eeprom_data():
     with open(Path(__file__).parent / "AT28C25_data.json", "r") as f:
         data = json.load(f)
     return data
+
+
+@pytest.fixture
+def read_serial_requests():
+    def _read_serial_requests(data):
+        messages = []
+        for i in range(0, len(data), 16):
+            message = f"T{i:04X}\n"
+            messages.append(message.encode("utf8"))
+        return messages
+
+    return _read_serial_requests
+
+
+@pytest.fixture
+def read_serial_responses():
+    def _read_serial_responses(data):
+        messages = []
+        for i in range(0, len(data), 16):
+            block = " ".join([f"{byte:02X}" for byte in data[i : i + 16]])
+            message = f"{block}\n"
+            messages.append(message.encode("utf8"))
+        return messages
+
+    return _read_serial_responses
