@@ -122,3 +122,11 @@ The **write** command writes a binary file to the EEPROM.
 ```bash
 eeprom write /home/user/binary.bin
 ```
+
+## read
+
+The **read** command reads the contents of the EEPROM and writes it to STDOUT in binary.
+
+```bash
+eeprom read > binary_file.bin
+```

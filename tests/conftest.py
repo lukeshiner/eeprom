@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 from unittest.mock import Mock, call, patch
 
@@ -126,3 +127,10 @@ def binary_file_path():
 def binary_file_contents(binary_file_path):
     with open(binary_file_path, "rb") as f:
         return f.read()
+
+
+@pytest.fixture
+def valid_eeprom_data():
+    with open(Path(__file__).parent / "AT28C25_data.json", "r") as f:
+        data = json.load(f)
+    return data

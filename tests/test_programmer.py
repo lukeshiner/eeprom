@@ -1,6 +1,3 @@
-import json
-from pathlib import Path
-
 import pytest
 
 from eeprom.arduino import Arduino
@@ -24,13 +21,6 @@ def programmer_with_valid_read_block_response(default_programmer, set_serial_res
     programmer = default_programmer
     set_serial_response(programmer, b"EA 2F A2 95 B3 55 6B 2A\n")
     return programmer
-
-
-@pytest.fixture
-def valid_eeprom_data():
-    with open(Path(__file__).parent / "AT28C25_data.json", "r") as f:
-        data = json.load(f)
-    return data
 
 
 @pytest.fixture

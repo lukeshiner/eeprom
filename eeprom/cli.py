@@ -63,7 +63,16 @@ def write(binary_file):
     programmer.write(binary_file.read())
 
 
+@click.command()
+def read():
+    """Read the contents of the EEPROM and print it a file."""
+    programmer = Programmer()
+    data = programmer.read()
+    click.echo(bytes(data), nl=False)
+
+
 cli.add_command(version)
 cli.add_command(read_byte)
 cli.add_command(write_byte)
 cli.add_command(write)
+cli.add_command(read)
