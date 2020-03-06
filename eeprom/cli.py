@@ -55,6 +55,15 @@ def write_byte(address, byte):
     byte = programmer.write_byte(address, byte)
 
 
+@click.command()
+@click.argument("binary_file", type=click.File("rb"))
+def write(binary_file):
+    """Write a binary file to the EEPROM."""
+    programmer = Programmer()
+    programmer.write(binary_file.read())
+
+
 cli.add_command(version)
 cli.add_command(read_byte)
 cli.add_command(write_byte)
+cli.add_command(write)

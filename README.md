@@ -114,3 +114,11 @@ The **write-byte** command writes a given byte to a given address.
 ```bash
 eeprom write-byte --address F563 --byte 2A
 ```
+
+## write
+
+The **write** command writes a binary file to the EEPROM.
+
+```bash
+eeprom write /home/user/binary.bin
+```

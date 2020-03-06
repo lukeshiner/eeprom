@@ -1,3 +1,4 @@
+from pathlib import Path
 from unittest.mock import Mock, call, patch
 
 import pytest
@@ -114,3 +115,14 @@ def assert_messages_sent():
         programmer.arduino.serial_connection.write.assert_has_calls(calls)
 
     return _assert_messages_sent
+
+
+@pytest.fixture
+def binary_file_path():
+    return Path(__file__).parent / "bin.bin"
+
+
+@pytest.fixture
+def binary_file_contents(binary_file_path):
+    with open(binary_file_path, "rb") as f:
+        return f.read()
