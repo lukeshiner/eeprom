@@ -1,6 +1,6 @@
 # EEPROM - Arduino based EEPROM programmer
 
-[![Build Status](https://travis-ci.org/lukeshiner/eeprom.svg?branch=master)](https://travis-ci.org/lukeshiner/eeprom)
+[![Build Status](https://github.com/lukeshiner/eeprom/workflows/CI/badge.svg)](https://github.com/lukeshiner/eeprom/actions?query=workflow%3ACI)
 [![Coverage Status](https://coveralls.io/repos/github/lukeshiner/eeprom/badge.svg?branch=master)](https://coveralls.io/github/lukeshiner/eeprom?branch=master)
 
 This is a very simple and very slow EEPROM programmer using an Arduino Nano based on the [design from Ben Eater](https://youtu.be/K88pgWhEb1M) for his [8-bit computer project](https://eater.net/8bit). The original design supports the AT28C16 EEPROM used that project, however EEPROM currently only supports the [AT28C256](http://ww1.microchip.com/downloads/en/DeviceDoc/doc0006.pdf) used in his [6502 Computer](https://eater.net/6502) project. It will be extended to support the [AT28C16](http://cva.stanford.edu/classes/cs99s/datasheets/at28c16.pdf) and could easily support other EEPROMs as well.
