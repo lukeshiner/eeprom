@@ -40,7 +40,7 @@ def test_output(write_result):
 
 def test_invalid_file_error_message(invalid_file_result, invalid_file_path):
     response = invalid_file_result.output
-    assert 'Invalid value for "BINARY_FILE"' in response
+    assert "Invalid value for 'BINARY_FILE'" in response
 
 
 def test_invalid_address_error_exit_code(invalid_file_result):
@@ -48,6 +48,9 @@ def test_invalid_address_error_exit_code(invalid_file_result):
 
 
 def test_serial_message_sent(
-    default_programmer, write_result, assert_messages_sent, write_serial_requests,
+    default_programmer,
+    write_result,
+    assert_messages_sent,
+    write_serial_requests,
 ):
     assert_messages_sent(default_programmer, write_serial_requests)

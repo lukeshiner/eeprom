@@ -18,8 +18,8 @@ def matching_update_result(
     binary_file_path,
     binary_file_contents,
 ):
-    default_programmer.arduino.serial_connection.readline.side_effect = read_serial_responses(
-        binary_file_contents
+    default_programmer.arduino.serial_connection.readline.side_effect = (
+        read_serial_responses(binary_file_contents)
     )
     return runner.invoke(cli, f"update {binary_file_path}")
 
@@ -33,11 +33,9 @@ def non_matching_update_result(
     altered_binary_file_contents,
     serial_ack,
 ):
-    default_programmer.arduino.serial_connection.readline.side_effect = read_serial_responses(
-        altered_binary_file_contents
-    ) + [
-        serial_ack
-    ]
+    default_programmer.arduino.serial_connection.readline.side_effect = (
+        read_serial_responses(altered_binary_file_contents) + [serial_ack]
+    )
     return runner.invoke(cli, f"update {binary_file_path}")
 
 

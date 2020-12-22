@@ -11,8 +11,8 @@ def matching_verify_result(
     binary_file_path,
     binary_file_contents,
 ):
-    default_programmer.arduino.serial_connection.readline.side_effect = read_serial_responses(
-        binary_file_contents
+    default_programmer.arduino.serial_connection.readline.side_effect = (
+        read_serial_responses(binary_file_contents)
     )
     return runner.invoke(cli, f"verify {binary_file_path}")
 
@@ -26,8 +26,8 @@ def non_matching_verify_result(
     binary_file_contents,
     altered_binary_file_contents,
 ):
-    default_programmer.arduino.serial_connection.readline.side_effect = read_serial_responses(
-        altered_binary_file_contents
+    default_programmer.arduino.serial_connection.readline.side_effect = (
+        read_serial_responses(altered_binary_file_contents)
     )
     return runner.invoke(cli, f"verify {binary_file_path}")
 

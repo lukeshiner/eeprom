@@ -5,8 +5,8 @@ from eeprom import cli
 
 @pytest.fixture
 def read_result(default_programmer, runner, read_serial_responses, valid_eeprom_data):
-    default_programmer.arduino.serial_connection.readline.side_effect = read_serial_responses(
-        valid_eeprom_data
+    default_programmer.arduino.serial_connection.readline.side_effect = (
+        read_serial_responses(valid_eeprom_data)
     )
     return runner.invoke(cli, "read")
 
